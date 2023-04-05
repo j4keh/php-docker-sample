@@ -1,0 +1,15 @@
+services:
+  web:
+    build: ./docker/web
+    volumes:
+      - ./app:/var/www/html:cached
+    stdin_open: true
+    tty: true
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - 7100:80
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
